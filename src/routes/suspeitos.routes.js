@@ -89,18 +89,57 @@ return res.status(201).json({
 // Rota para buscar um suspeito pelo id
 suspeitosRoutes.get("/:id", (req, res) => {
     const { id } = req.params;
-  
+
     // Busca um suspeito pelo id no array de suspeitos
     const suspeito = suspeitos.find((suspect) => suspect.id == id);
-  
+
     // Verifica se o suspeito foi encontrado
     if (!suspeito) {
-      return res
+    return res
         .status(404)
         .json({ message: `suspeito com id ${id} não encontrado!` });
     }
-  
+
     return res.status(200).json(suspeito);
+});
+
+// Rota para atualizar um suspeito pelo id
+suspeitosRoutes.put("/:id", (req, res) => {
+    const { id } = req.params;
+    const { nome, idade, descricao, envolvimento } = req.body;
+  
+    // Busca um suspeito pelo id no array de suspeitos
+    const suspeito = suspeitos.find((p) => p.id == id);
+  
+    // Validação dos campos obrigatórios
+    if (!nome || !idade || !envolvimento) {
+      return res.status(400).json({
+        message: "Os campos nome, idade e envolvimento são obrigatórios!",
+      });
+    }
+  
+    // Validação de existência de envolvimento
+    if (envolvimento != "sim" && envolvimento != "não") {
+      return res.status(400).send({
+        message: "Digite 'sim' ou 'não'!",
+      });
+    }
+
+    if ((Number.isInteger(idade)) == false  ) {
+        return res.status(400).send({
+        message: "Digite um numero inteiro para idade!!",
+        })
+    }
+
+    suspeito.nome = nome;
+    suspeito.idade = idade;
+    suspeito.descricao = descricao;
+    suspeito.envolvimento = envolvimento ;
+  
+    return res.status(200).json({
+      message: "suspeito atualizado com sucesso!",
+      suspeito,
+    });
   });
 
 export default suspeitosRoutes;
