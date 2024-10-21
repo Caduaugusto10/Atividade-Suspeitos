@@ -58,8 +58,7 @@
 
 ### **Resumo da Avaliação**
 
-- **Pontuação Projeto**: 92/100
-- **Pontuação Total Obtida: 100/100**
+- **Pontuação Total Obtida: 92/100**
 - **Observações Gerais**:
   - O projeto foi muito bem desenvolvido, com uma boa organização de código e estruturação das rotas.
   - A validação dos dados foi implementada de forma correta e os códigos de status HTTP estão sendo retornados de acordo com o esperado.
